@@ -1,16 +1,16 @@
-#array of stock prices
-#return a pair of days best day to buy and best to sell
-#days start at 0
-#buy first then sell
+
 def stock_picker(array)
-  
-  array.each_with_index do |day, index|
-    
+  best_profit = {}
+  array.each_with_index do |buy_day, buy_index| #loop through the array value and index
+    array.each_with_index do |sell_day, sell_index|
+      if sell_index > buy_index #check if there is an increase in price
+        best_profit[sell_day - buy_day] ||= []
+        best_profit[sell_day - buy_day] << [buy_day, sell_day] # buy and sell days added to values/profits
+      end
+    end
   end
-  
+  p best_profit.max_by { |profit, purchase_days| profit }
 end
-#check the difference between the numbers in an array
-#if the next day is greater go to the next
-#if the next day is less take the current day and deduct from starting day for profit
+
 stock_picker([17,3,6,9,15,8,6,1,10])
 
